@@ -1,4 +1,4 @@
-# PDF-to-SLM: Data Preparation Pipeline
+# 1. Data Pre-Processing:  PDF-to-SLM: Data Preparation Pipeline
 
 This repository outlines the end-to-end process for transforming a local directory of `.pdf` files into a high-quality, machine-ready dataset for training or fine-tuning **Small Language Models (SLMs)**. 
 
