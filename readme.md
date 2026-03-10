@@ -1,4 +1,4 @@
-# 1. Data Pre-Processing:  PDF-to-SLM: Data Preparation Pipeline
+# Part-1. Data Pre-Processing:  PDF-to-SLM: Data Preparation Pipeline
 
 This repository outlines the end-to-end process for transforming a local directory of `.pdf` files into a high-quality, machine-ready dataset for training or fine-tuning **Small Language Models (SLMs)**. 
 
@@ -48,10 +48,39 @@ For SLMs, **Quality > Quantity**.
 * **Perplexity Filtering:** Use a small pre-trained model to score text; discard high-perplexity chunks that likely contain gibberish.
 
 ---
+# 📊 Part 2: Understanding Perplexity (PPL)
 
-## 📄 Output Format
+Perplexity measures how well a probability model predicts a sample. In NLP, it represents the **"effective branching factor"** of a model's vocabulary.
+
+
+
+### Value Reference Table
+
+| Value Range | Meaning | Significance |
+| :--- | :--- | :--- |
+| **1.0** | **Perfect Certainty** | Model is 100% sure; likely overfitted. |
+| **10 – 30** | **High Performance** | Typical range for SOTA models (GPT-4, Llama 3). |
+| **50 – 100** | **Moderate Fluency** | Basic logic is present; nuances are often lost. |
+| **300+** | **High Confusion** | Model output is likely "word salad" or gibberish. |
+
+---
+
+### Key Mathematical Definition
+
+Perplexity is the exponentiated average negative log-likelihood. It is defined as:
+
+$$PPL(X) = 2^{H(X)}$$
+
+Where $H(X)$ is the **Shannon entropy** of the distribution. 
+
+> **Note:** A lower perplexity indicates a more "confident" model that is less surprised by the test data. However, low perplexity does not always equate to factual accuracy; a model can be confidently wrong (hallucinating).
+# Part-3: Output Format
 For compatibility with training frameworks like `Hugging Face trl` or `Axolotl`, the final data should be exported as a **JSONL** file:
 
 ```json
 {"text": "The executive summary of the 2024 report states that... <|endoftext|>"}
 {"text": "Section 2.1: Revenue growth was driven by... <|endoftext|>"}
+
+
+
+
